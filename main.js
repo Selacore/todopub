@@ -1,20 +1,22 @@
 const taskInput = document.querySelector('.new-todo');
 const todosWrapper = document.querySelector('.todo-list');
 let taskcounter = document.querySelector('.todo-count strong');
-let i=0;
+
 
 let tasks;
 !localStorage.tasks ? tasks = [] : tasks = JSON.parse(localStorage.getItem('tasks'));
+console.log(tasks);
+taskcounter.textContent = tasks.length;
+
 
 let todoElems = [];
+
 
 function Task(newtodo) { 
     this.newtodo = newtodo;
     this.completed = false;
 }
 const createTemplate = (task, index) => {
-    i++;
-    taskcounter.textContent = i;
     return `
             <li data-id="" class= "${task.completed ? 'completed' : ''}">
                     <div class="view">
@@ -24,7 +26,6 @@ const createTemplate = (task, index) => {
                     </div>
             </li>
     `
-    
     
 }
 const insertHtml = () => {
@@ -44,12 +45,10 @@ const completeTask = index => {
 tasks[index].completed = !tasks[index].completed;
 if(tasks[index].completed) {
     todoElems[index].classList.add('completed');
-    i--;
-    taskcounter.textContent = i;
+    taskcounter.textContent = tasks.length - 1;
 } else {
     todoElems[index].classList.remove('completed');
-    i++;
-    taskcounter.textContent = i;
+    taskcounter.textContent = tasks.length;
 }
 updateLocalStorage();
 insertHtml();
@@ -67,8 +66,7 @@ taskInput.addEventListener('keydown', (e) => {
 
 const deleteTask = index => {
     tasks.splice(index, 1);
-    i--;
-    taskcounter.textContent = i;
+    taskcounter.textContent = tasks.length - 1;
     updateLocalStorage();
     insertHtml();
 }
