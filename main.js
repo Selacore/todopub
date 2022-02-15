@@ -3,9 +3,11 @@ const todosWrapper = document.querySelector('.todo-list');
 let taskcounter = document.querySelector('.todo-count strong');
 
 
+
+
 let tasks;
 !localStorage.tasks ? tasks = [] : tasks = JSON.parse(localStorage.getItem('tasks'));
-console.log(tasks);
+
 taskcounter.textContent = tasks.length;
 
 
@@ -37,6 +39,20 @@ const insertHtml = () => {
         todoElems = document.querySelectorAll('.todo-list li');
     }
 }
+
+insertHtml();
+
+
+tasks.reduce((acc, item) => {
+   
+    count =  acc + item.completed;
+    return  count;
+    }, 0)
+taskcounter.textContent = tasks.length - count;
+
+
+
+
 const updateLocalStorage = () => {
     localStorage.setItem('tasks',JSON.stringify(tasks));
     }
@@ -45,11 +61,11 @@ const completeTask = index => {
 tasks[index].completed = !tasks[index].completed;
 if(tasks[index].completed) {
     todoElems[index].classList.add('completed');
-    taskcounter.textContent = tasks.length - 1;
 } else {
     todoElems[index].classList.remove('completed');
-    taskcounter.textContent = tasks.length;
+    
 }
+
 updateLocalStorage();
 insertHtml();
 }
@@ -66,8 +82,23 @@ taskInput.addEventListener('keydown', (e) => {
 
 const deleteTask = index => {
     tasks.splice(index, 1);
-    taskcounter.textContent = tasks.length - 1;
+    taskcounter.textContent = tasks.length;
     updateLocalStorage();
     insertHtml();
 }
+
+
+
+document.querySelector('.filters').addEventListener('click', event => {
+ let result = [];
+ result = event.target.dataset.filter;
+ result = tasks.filter(() => { 
+     event.target.dataset.filter;
+     if (tasks.completed) { 
+        
+     }
+    
+ })
+});
+
 
