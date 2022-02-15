@@ -93,7 +93,6 @@ document.querySelector('.filters').addEventListener('click', event => {
  let result = [];
  result = event.target.dataset.filter;
  result = tasks.filter(() => { 
-     event.target.dataset.filter;
      if (tasks.completed) { 
         
      }
